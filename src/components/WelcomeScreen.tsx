@@ -18,10 +18,10 @@ export function WelcomeScreen({ onSuggestionClick }: WelcomeScreenProps) {
         <MessageSquare size={22} className="text-accent" />
       </div>
       <div className="text-xl md:text-2xl font-medium text-text-primary tracking-tight mb-1.5 text-center">
-        GitLab Handbook
+        Ask Anything GitLab!
       </div>
       <div className="text-sm md:text-base text-text-tertiary mb-8 md:mb-10 text-center max-w-[400px]">
-        Ask anything about GitLab's policies, engineering practices, and culture.
+        Ask anything about GitLab's policies, engineering practices, culture and future directions.
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-[560px] w-full">

@@ -36,7 +36,7 @@ export function ChatArea({ messages, isLoading, onSend, onOpenSidebar }: ChatAre
           <PanelLeft size={20} />
         </button>
         <span className="ml-2 text-[15px] font-medium text-text-primary tracking-tight">
-          GitLab Handbook
+          Ask Away!
         </span>
       </div>
 

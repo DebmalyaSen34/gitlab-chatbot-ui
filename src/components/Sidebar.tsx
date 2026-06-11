@@ -86,7 +86,7 @@ export function Sidebar({
       {/* Brand */}
       <div className="flex items-center justify-between gap-2.5 px-3 pb-4 border-b border-border mb-2">
         <div>
-          <div className="text-[17px] font-semibold text-text-primary tracking-tight">GitLab Handbook</div>
+          <div className="text-[17px] font-semibold text-text-primary tracking-tight">Gitlab Chatbot</div>
           <div className="text-[14px] text-text-tertiary">Knowledge Base</div>
         </div>
         <button

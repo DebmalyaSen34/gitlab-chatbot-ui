@@ -59,7 +59,7 @@ export function InputArea({ onSend, disabled }: InputAreaProps) {
           </button>
         </div>
         <div className="flex justify-between items-center mt-2 text-[12px] md:text-[14px] text-text-tertiary">
-          <span className="truncate">GitLab Handbook RAG · Responses are AI-generated</span>
+          <span className="truncate">GitLab Chatbot · Responses are AI-generated</span>
         </div>
       </div>
     </div>
