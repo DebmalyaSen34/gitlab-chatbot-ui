@@ -1,4 +1,4 @@
-import { MessageSquarePlus, Circle, Trash2, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
+import { MessageSquarePlus, Circle, Trash2, PanelLeftClose, PanelLeftOpen, X } from 'lucide-react'
 import type { ChatSession } from '../types'
 
 interface SidebarProps {
@@ -9,6 +9,7 @@ interface SidebarProps {
   onClearHistory: () => void
   collapsed: boolean
   onToggleCollapsed: () => void
+  isMobile?: boolean
 }
 
 export function Sidebar({
@@ -19,6 +20,7 @@ export function Sidebar({
   onClearHistory,
   collapsed,
   onToggleCollapsed,
+  isMobile = false,
 }: SidebarProps) {
   const startOfToday = new Date()
   startOfToday.setHours(0, 0, 0, 0)
@@ -49,7 +51,8 @@ export function Sidebar({
     }
   }
 
-  if (collapsed) {
+  // Mobile always renders expanded (overlay controls collapse)
+  if (!isMobile && collapsed) {
     return (
       <aside className="w-16 min-w-16 bg-bg-secondary border-r border-border flex flex-col items-center py-4 gap-3 transition-[width] duration-200">
         <button
@@ -76,7 +79,10 @@ export function Sidebar({
   }
 
   return (
-    <aside className="w-[280px] min-w-[280px] bg-bg-secondary border-r border-border flex flex-col py-4 px-3 gap-2 transition-[width] duration-200">
+    <aside className={`
+      w-[280px] min-w-[280px] bg-bg-secondary border-r border-border flex flex-col py-4 px-3 gap-2 transition-[width] duration-200
+      ${isMobile ? 'h-full' : ''}
+    `}>
       {/* Brand */}
       <div className="flex items-center justify-between gap-2.5 px-3 pb-4 border-b border-border mb-2">
         <div>
@@ -85,11 +91,11 @@ export function Sidebar({
         </div>
         <button
           onClick={onToggleCollapsed}
-          title="Collapse sidebar"
-          aria-label="Collapse sidebar"
+          title={isMobile ? 'Close sidebar' : 'Collapse sidebar'}
+          aria-label={isMobile ? 'Close sidebar' : 'Collapse sidebar'}
           className="w-9 h-9 min-w-9 flex items-center justify-center bg-transparent border-none text-text-tertiary cursor-pointer transition-all hover:bg-bg-hover hover:text-text-primary"
         >
-          <PanelLeftClose size={18} />
+          {isMobile ? <X size={18} /> : <PanelLeftClose size={18} />}
         </button>
       </div>
 

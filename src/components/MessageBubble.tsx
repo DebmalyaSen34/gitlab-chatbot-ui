@@ -12,11 +12,11 @@ export function MessageBubble({ message }: MessageBubbleProps) {
   const isUser = message.role === 'user'
 
   return (
-    <div className="flex gap-5 py-5 animate-msg-in border-b border-border first:border-t">
+    <div className="flex gap-3 md:gap-5 py-4 md:py-5 animate-msg-in border-b border-border first:border-t">
       {/* Avatar */}
       <div
         className={`
-          w-7 h-7 min-w-7 flex items-center justify-center text-xs font-semibold mt-0.5
+          w-6 h-6 md:w-7 md:h-7 min-w-6 md:min-w-7 flex items-center justify-center text-[10px] md:text-xs font-semibold mt-0.5
           ${isUser
             ? 'bg-accent-dim text-accent border border-accent/20'
             : 'bg-bg-tertiary text-text-secondary border border-border'
@@ -28,7 +28,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 
       {/* Content */}
       <div className="flex-1 min-w-0 pr-1">
-        <div className="text-xs font-semibold text-text-secondary uppercase tracking-wider mb-2">
+        <div className="text-[11px] md:text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1.5 md:mb-2">
           {isUser ? 'You' : 'Assistant'}
         </div>
 
@@ -38,7 +38,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 
         {/* Metadata */}
         {!isUser && (message.cache || message.latency != null) && (
-          <div className="flex gap-4 mt-3 font-[var(--font-mono)] text-[11px]">
+          <div className="flex gap-4 mt-3 font-[var(--font-mono)] text-[10px] md:text-[11px]">
             {message.cache && (
               <span className={message.cache === 'HIT' ? 'text-green' : 'text-text-tertiary'}>
                 {message.cache === 'HIT' ? '●' : '○'} {message.cache}
@@ -55,11 +55,11 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 
         {/* Sources */}
         {!isUser && message.sources && message.sources.length > 0 && (
-          <div className="mt-4">
+          <div className="mt-3 md:mt-4">
             <button
               onClick={() => setSourcesOpen(!sourcesOpen)}
               className={`
-                inline-flex items-center gap-1.5 text-[12px] text-text-tertiary bg-transparent border border-border px-3 py-1.5 font-[var(--font-body)] cursor-pointer transition-all hover:text-text-secondary hover:border-border-input
+                inline-flex items-center gap-1.5 text-[11px] md:text-[12px] text-text-tertiary bg-transparent border border-border px-2.5 md:px-3 py-1.5 font-[var(--font-body)] cursor-pointer transition-all hover:text-text-secondary hover:border-border-input
               `}
             >
               <ChevronRight
@@ -74,15 +74,15 @@ export function MessageBubble({ message }: MessageBubbleProps) {
                 {message.sources.map((src, i) => (
                   <div
                     key={i}
-                    className="px-3.5 py-2.5 text-[12px] text-text-secondary border-b border-border last:border-b-0 flex justify-between items-center"
+                    className="px-3 md:px-3.5 py-2 md:py-2.5 text-[11px] md:text-[12px] text-text-secondary border-b border-border last:border-b-0 flex flex-col md:flex-row md:justify-between md:items-center gap-1 md:gap-0"
                   >
                     <span>
                       {i + 1}.{' '}
-                      <a href={src.url} target="_blank" rel="noopener" className="text-accent no-underline hover:underline">
+                      <a href={src.url} target="_blank" rel="noopener" className="text-accent no-underline hover:underline break-all">
                         {src.title}
                       </a>
                     </span>
-                    <span className="font-[var(--font-mono)] text-[11px] text-text-tertiary">
+                    <span className="font-[var(--font-mono)] text-[10px] md:text-[11px] text-text-tertiary truncate">
                       {src.url.split('/').pop()}
                     </span>
                   </div>

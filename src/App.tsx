@@ -36,6 +36,7 @@ export default function App() {
   )
   const [isLoading, setIsLoading] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
 
   const activeSession = sessions.find(s => s.id === activeSessionId)
   const messages = activeSession?.messages ?? []
@@ -52,12 +53,20 @@ export default function App() {
     }
   }, [activeSessionId, sessions])
 
+  // Lock body scroll when mobile sidebar is open
+  useEffect(() => {
+    document.body.style.overflow = mobileSidebarOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [mobileSidebarOpen])
+
   const handleNewChat = useCallback(() => {
     setActiveSessionId(null)
+    setMobileSidebarOpen(false)
   }, [])
 
   const handleSelectSession = useCallback((id: string) => {
     setActiveSessionId(id)
+    setMobileSidebarOpen(false)
   }, [])
 
   const handleClearHistory = useCallback(() => {
@@ -132,20 +141,49 @@ export default function App() {
   }, [activeSessionId])
 
   return (
-    <div className="flex h-screen">
-      <Sidebar
-        sessions={sessions}
-        activeSessionId={activeSessionId}
-        onNewChat={handleNewChat}
-        onSelectSession={handleSelectSession}
-        onClearHistory={handleClearHistory}
-        collapsed={sidebarCollapsed}
-        onToggleCollapsed={() => setSidebarCollapsed(collapsed => !collapsed)}
-      />
+    <div className="flex h-screen relative">
+      {/* Desktop sidebar — always rendered, hidden below md when collapsed */}
+      <div className="hidden md:flex flex-shrink-0">
+        <Sidebar
+          sessions={sessions}
+          activeSessionId={activeSessionId}
+          onNewChat={handleNewChat}
+          onSelectSession={handleSelectSession}
+          onClearHistory={handleClearHistory}
+          collapsed={sidebarCollapsed}
+          onToggleCollapsed={() => setSidebarCollapsed(collapsed => !collapsed)}
+        />
+      </div>
+
+      {/* Mobile sidebar overlay */}
+      {mobileSidebarOpen && (
+        <div className="md:hidden fixed inset-0 z-50 flex">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60 animate-fade-in"
+            onClick={() => setMobileSidebarOpen(false)}
+          />
+          {/* Sidebar panel */}
+          <div className="relative w-[280px] max-w-[80vw] animate-slide-in-left">
+            <Sidebar
+              sessions={sessions}
+              activeSessionId={activeSessionId}
+              onNewChat={handleNewChat}
+              onSelectSession={handleSelectSession}
+              onClearHistory={handleClearHistory}
+              collapsed={false}
+              onToggleCollapsed={() => setMobileSidebarOpen(false)}
+              isMobile
+            />
+          </div>
+        </div>
+      )}
+
       <ChatArea
         messages={messages}
         isLoading={isLoading}
         onSend={handleSend}
+        onOpenSidebar={() => setMobileSidebarOpen(true)}
       />
     </div>
   )

@@ -32,7 +32,7 @@ export function InputArea({ onSend, disabled }: InputAreaProps) {
   }
 
   return (
-    <div className="px-6 pb-5 pt-3 bg-bg-primary flex justify-center">
+    <div className="px-4 md:px-6 pb-4 md:pb-5 pt-3 bg-bg-primary flex justify-center">
       <div className="w-full max-w-[860px]">
         <div className="flex items-end bg-bg-tertiary border border-border-input transition-colors focus-within:border-text-tertiary gap-2 p-2">
           <textarea
@@ -42,7 +42,7 @@ export function InputArea({ onSend, disabled }: InputAreaProps) {
             onKeyDown={handleKeyDown}
             placeholder="Ask about the GitLab handbook..."
             rows={1}
-            className="flex-1 bg-transparent border-none outline-none text-text-primary text-[18px] leading-relaxed px-3 py-2.5 resize-none max-h-[200px] min-h-[28px] placeholder:text-text-placeholder"
+            className="flex-1 bg-transparent border-none outline-none text-text-primary text-[15px] md:text-[18px] leading-relaxed px-2 md:px-3 py-2 md:py-2.5 resize-none max-h-[200px] min-h-[28px] placeholder:text-text-placeholder"
           />
           <button
             onClick={handleSend}
@@ -58,8 +58,8 @@ export function InputArea({ onSend, disabled }: InputAreaProps) {
             <Send size={15} />
           </button>
         </div>
-        <div className="flex justify-between items-center mt-2 text-[14px] text-text-tertiary">
-          <span>GitLab Handbook RAG · Responses are AI-generated</span>
+        <div className="flex justify-between items-center mt-2 text-[12px] md:text-[14px] text-text-tertiary">
+          <span className="truncate">GitLab Handbook RAG · Responses are AI-generated</span>
         </div>
       </div>
     </div>
