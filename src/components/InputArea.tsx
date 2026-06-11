@@ -34,7 +34,7 @@ export function InputArea({ onSend, disabled }: InputAreaProps) {
   return (
     <div className="px-6 pb-5 pt-3 bg-bg-primary flex justify-center">
       <div className="w-full max-w-[860px]">
-        <div className="flex items-end bg-bg-tertiary border border-border-input transition-colors focus-within:border-text-tertiary gap-2 p-1">
+        <div className="flex items-end bg-bg-tertiary border border-border-input transition-colors focus-within:border-text-tertiary gap-2 p-2">
           <textarea
             ref={textareaRef}
             value={value}
@@ -42,20 +42,20 @@ export function InputArea({ onSend, disabled }: InputAreaProps) {
             onKeyDown={handleKeyDown}
             placeholder="Ask about the GitLab handbook..."
             rows={1}
-            className="flex-1 bg-transparent border-none outline-none text-text-primary text-[18px] leading-relaxed px-3.5 py-3 resize-none max-h-[200px] min-h-[28px] placeholder:text-text-placeholder"
+            className="flex-1 bg-transparent border-none outline-none text-text-primary text-[18px] leading-relaxed px-3 py-2.5 resize-none max-h-[200px] min-h-[28px] placeholder:text-text-placeholder"
           />
           <button
             onClick={handleSend}
             disabled={!value.trim() || disabled}
             className={`
-              w-9 h-9 flex items-center justify-center flex-shrink-0 border-none cursor-pointer transition-all
+              w-8 h-8 flex items-center justify-center flex-shrink-0 border-none cursor-pointer transition-all mb-0.5
               ${value.trim() && !disabled
-                ? 'bg-text-primary text-bg-primary hover:bg-white'
-                : 'bg-bg-tertiary text-text-tertiary cursor-default'
+                ? 'bg-accent text-white hover:brightness-110'
+                : 'bg-transparent text-text-tertiary cursor-default'
               }
             `}
           >
-            <Send size={16} />
+            <Send size={15} />
           </button>
         </div>
         <div className="flex justify-between items-center mt-2 text-[14px] text-text-tertiary">
