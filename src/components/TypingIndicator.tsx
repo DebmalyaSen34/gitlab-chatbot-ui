@@ -28,7 +28,7 @@ export function TypingIndicator() {
     Math.floor(Math.random() * LOADING_MESSAGES.length)
   )
   const [opacity, setOpacity] = useState(1)
-  const intervalRef = useRef<ReturnType<typeof setInterval>>()
+  const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
