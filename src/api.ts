@@ -1,12 +1,12 @@
-import type { ChatMessage } from './types'
+import type { ChatMessage, HistoryMessage } from './types'
 
 const API_BASE = `${import.meta.env.VITE_API_BASE}/api`
 
-export async function sendMessage(query: string): Promise<ChatMessage> {
+export async function sendMessage(query: string, history: HistoryMessage[] = []): Promise<ChatMessage> {
   const res = await fetch(`${API_BASE}/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query, history }),
   })
 
   if (!res.ok) {

@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react'
 import { Sidebar } from './components/Sidebar'
 import { ChatArea } from './components/ChatArea'
 import { sendMessage } from './api'
-import type { ChatMessage, ChatSession } from './types'
+import type { ChatMessage, ChatSession, HistoryMessage } from './types'
 
 const SESSIONS_STORAGE_KEY = 'gitlab-handbook-chat-sessions'
 const ACTIVE_SESSION_STORAGE_KEY = 'gitlab-handbook-active-session'
@@ -114,7 +114,14 @@ export default function App() {
     setIsLoading(true)
 
     try {
-      const response = await sendMessage(query)
+      // Build conversation history from session messages (last 10 = ~5 pairs)
+      const sessionMessages = sessions.find(s => s.id === sessionId)?.messages ?? []
+      const history: HistoryMessage[] = sessionMessages.slice(-10).map(m => ({
+        role: m.role,
+        content: m.content,
+      }))
+
+      const response = await sendMessage(query, history)
       setSessions(prev =>
         prev.map(s =>
           s.id === sessionId

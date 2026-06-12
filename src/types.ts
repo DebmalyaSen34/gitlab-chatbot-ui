@@ -14,6 +14,11 @@ export interface ChatMessage {
   sources?: SourceChunk[]
 }
 
+export interface HistoryMessage {
+  role: 'user' | 'assistant'
+  content: string
+}
+
 export interface ChatSession {
   id: string
   title: string
